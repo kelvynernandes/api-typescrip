@@ -1,7 +1,7 @@
 {
   "name": "api-typescrip",
   "version": "1.0.0",
-  "description": "",
+  "description": "API Web feita com typescript",
   "main": "index.js",
   
   "scripts": {
