@@ -1,16 +1,19 @@
+Comandos utilizados para iniciar este projeto:
+
 npm init -y
-
 npm i express dotenv
-
-nom i typescript --save-dev
-
-npm i is-node -D
-
-npm i -D @types/express @types/dotenv
-
+npm i typescript tsx @types/node @types/express @types/dotenv -D
 npx tsc --init
 
-npm i nodemon -D
+Arquivos criados no início do projeto:
+.gitignore -> contendo: node_modules .env e dist
+.env
 
-para rodas um script criado no package.json usar o comando: 
+Pastas criadas no início do projeto:
+dist
+src
+
+---
+
+Para rodar um script criado no package.json usar o comando:
 npm run SCRIPT
