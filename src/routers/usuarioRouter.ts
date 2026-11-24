@@ -1,8 +1,13 @@
+// Responsável por definir os endpoints da API e direcionar as requisições
 import express from "express";
-import usuarioController from "../controllers/usuarioControllers.js";
-
+import usuarioController from "../controllers/usuarioController.js";
+ 
 const router = express.Router();
-
-router.get("/", usuarioController.getAllusuarios);
-
+ 
+router.get("/:id", usuarioController.getUsuario); //
+ 
+router.get("/", usuarioController.getAllUsuarios);
+ 
+router.post("/", usuarioController.postUsuario);
+ 
 export default router;
