@@ -4,7 +4,7 @@ import usuarioRepository from "../repositories/usuarioRepository.js";
 import Usuario from "../models/usuario.js";
  
 async function getUsuario(req: Request, res: Response, next: NextFunction) {
-  const id = req.params.id as unknown as number;
+  const id = parseInt(req.params.id as string);
   const usuario = await usuarioRepository.getUsuario(id);
   if (usuario) res.json(usuario);
   else res.sendStatus(404);
@@ -21,5 +21,20 @@ async function postUsuario(req: Request, res: Response, next: NextFunction) {
     res.status(201).json(resultado);
 }
  
-export default { getAllUsuarios, getUsuario, postUsuario };
- 
+async function deleteUsuario(req: Request, res: Response, next: NextFunction) {
+  const id = parseInt(req.params.id as string);
+  const resultado = await usuarioRepository.deleteUsuario(id);
+  resultado ? res.sendStatus(204) : res.sendStatus(404);
+  // if (resultaddo) {
+  //  res.sendStatus(204);
+  // } else {res.sendStatus(404)};
+}
+
+async function updateUsuario(req: Request, res: Response, next: NextFunction) {
+ const id = parseInt(req.params.id as string);
+  const dadosUsuario = req.body as Usuario;
+  const resultado = await usuarioRepository.updateUsuario(id, dadosUsuario);
+  res.json(resultado);
+}
+
+export default { getAllUsuarios, getUsuario, postUsuario, deleteUsuario, updateUsuario };

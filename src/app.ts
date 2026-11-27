@@ -6,12 +6,10 @@ const app = express();
 
 app.use(express.json());
 
-
-app.use("/usuarios", usuarioRouter);
-
+app.use("/", usuarioRouter);
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
-    res.send("Hello World");
+  res.send("Hello World");
 });
 
 export default app;
