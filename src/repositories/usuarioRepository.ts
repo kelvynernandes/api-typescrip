@@ -16,17 +16,48 @@ async function getAllUsuarios(): Promise<Usuario[]> {
   });
 }
 // resolve  Cumpre a promessa com valor.
-// reject   Rejeita a promessa com um erro.
+// reject Rejeita a promessa com um erro.
  
 async function addUsuario(usuario: Usuario): Promise<Usuario> {
-    if (!usuario.nome || !usuario.senha) {
-        throw new Error("Dados de usuário inválidos");
-    }
-
-    const novoUsuario = new Usuario(usuario.id, usuario.nome, usuario.senha);
-    usuarios.push(novoUsuario);
-    return novoUsuario;
+    return new Promise((resolve, reject) => {
+        if (!usuario.nome || !usuario.senha) {
+            return reject(new Error("Dados de usuário inválidos"));
+        }
+ 
+        const novoUsuario = new Usuario(usuario.id, usuario.nome, usuario.senha);
+        usuarios.push(novoUsuario);
+        return resolve(novoUsuario);
+    });
 }
  
-export default { getUsuario, getAllUsuarios, addUsuario };
+async function deleteUsuario(id:number): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const usuarioIndex = usuarios.findIndex((usuario) => usuario.id === id);
+      if (usuarioIndex === -1){
+        return resolve(false);
+      }
+      usuarios.splice(usuarioIndex, 1);
+      return resolve(true);
+    });
+}
  
+async function updateUsuario(id: number, dadosUsuario: Usuario): Promise<Usuario> {
+  return new Promise((resolve, reject) => {
+    const usuarioIndex = usuarios.findIndex((usuario) => usuario.id === id);
+
+    if (usuarioIndex === -1) {
+      return reject(new Error("Usuário não encontrado"));
+    }
+
+    if (dadosUsuario.nome && usuarios[usuarioIndex].nome !== dadosUsuario.nome) {
+      usuarios[usuarioIndex].nome = dadosUsuario.nome;
+    }
+    if (dadosUsuario.senha && usuarios[usuarioIndex].senha !== dadosUsuario.senha) {
+      usuarios[usuarioIndex].senha = dadosUsuario.senha;
+    }
+    return resolve(usuarios[usuarioIndex]);
+  });
+}
+ 
+ 
+export default { getUsuario, getAllUsuarios, addUsuario, deleteUsuario, updateUsuario };
